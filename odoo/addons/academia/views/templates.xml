@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Plantillas QWeb que usan los controladores HTML.
+         Son páginas simples, sin depender del módulo website. -->
+    <template id="cursos_base">
+        <html lang="es">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <title>Cursos · Academia</title>
+                <style>
+                    body { font-family: Montserrat, Arial, sans-serif; background: #F0F2F5; color: #141E2E; margin: 0; }
+                    header { background: #141E2E; color: #fff; padding: 24px 40px; }
+                    main { max-width: 900px; margin: 32px auto; padding: 0 20px; }
+                    .curso { background: #fff; border-top: 4px solid #6EA8FE; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; }
+                    .curso h2 { margin: 0 0 6px; }
+                    .meta { color: #474973; }
+                    a { color: #23579A; }
+                </style>
+            </head>
+            <body>
+                <header><h1>Academia</h1></header>
+                <main><t t-out="0"/></main>
+            </body>
+        </html>
+    </template>
+
+    <template id="cursos_page">
+        <t t-call="academia.cursos_base">
+            <h2>Cursos disponibles</h2>
+            <t t-if="not cursos">
+                <p>Por ahora no hay cursos publicados.</p>
+            </t>
+            <t t-foreach="cursos" t-as="curso">
+                <div class="curso">
+                    <h2><a t-attf-href="/cursos/#{curso.id}" t-out="curso.name"/></h2>
+                    <p class="meta">
+                        <t t-out="curso.horas"/> horas
+                        <t t-if="curso.instructor_id"> · Instructor: <t t-out="curso.instructor_id.name"/></t>
+                    </p>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="curso_detalle_page">
+        <t t-call="academia.cursos_base">
+            <p><a href="/cursos">← Todos los cursos</a></p>
+            <div class="curso">
+                <h2 t-out="curso.name"/>
+                <p class="meta">
+                    <span t-field="curso.fecha_inicio"/> · <t t-out="curso.horas"/> horas
+                </p>
+                <p t-if="curso.descripcion" t-out="curso.descripcion"/>
+                <h3>Sesiones</h3>
+                <ul>
+                    <li t-foreach="curso.sesion_ids" t-as="sesion">
+                        <t t-out="sesion.name"/> (<t t-out="sesion.duracion"/> h)
+                    </li>
+                </ul>
+            </div>
+        </t>
+    </template>
+</odoo>

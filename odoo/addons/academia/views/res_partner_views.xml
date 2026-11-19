@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Herencia de vista: agrega el campo nuevo de res.partner
+         al formulario de contactos sin modificar la vista original -->
+    <record id="view_partner_form_academia" model="ir.ui.view">
+        <field name="name">res.partner.form.academia</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="es_instructor"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="instructor_action" model="ir.actions.act_window">
+        <field name="name">Instructores</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('es_instructor', '=', True)]</field>
+        <field name="context">{'default_es_instructor': True}</field>
+    </record>
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Datos de demostración: se cargan solo si la base se creó con demo -->
+    <record id="instructor_ana" model="res.partner">
+        <field name="name">Ana Martínez</field>
+        <field name="es_instructor" eval="True"/>
+    </record>
+    <record id="instructor_carlos" model="res.partner">
+        <field name="name">Carlos Rivera</field>
+        <field name="es_instructor" eval="True"/>
+    </record>
+    <record id="alumno_1" model="res.partner">
+        <field name="name">Lucía Hernández</field>
+    </record>
+    <record id="alumno_2" model="res.partner">
+        <field name="name">José Portillo</field>
+    </record>
+    <record id="alumno_3" model="res.partner">
+        <field name="name">María López</field>
+    </record>
+
+    <record id="curso_odoo_basico" model="academia.curso">
+        <field name="name">Odoo básico</field>
+        <field name="horas">4</field>
+        <field name="estado">confirmado</field>
+        <field name="fecha_inicio" eval="(DateTime.today()).strftime('%Y-%m-%d')"/>
+        <field name="fecha_fin" eval="(DateTime.today() + relativedelta(days=2)).strftime('%Y-%m-%d')"/>
+        <field name="instructor_id" ref="instructor_ana"/>
+        <field name="alumno_ids" eval="[(6, 0, [ref('alumno_1'), ref('alumno_2'), ref('alumno_3')])]"/>
+        <field name="descripcion">Arquitectura, vistas, modelos, controladores y reportes QWeb.</field>
+    </record>
+    <record id="curso_qweb" model="academia.curso">
+        <field name="name">Reportes con QWeb</field>
+        <field name="horas">12</field>
+        <field name="estado">borrador</field>
+        <field name="fecha_inicio" eval="(DateTime.today() + relativedelta(days=7)).strftime('%Y-%m-%d')"/>
+        <field name="fecha_fin" eval="(DateTime.today() + relativedelta(days=9)).strftime('%Y-%m-%d')"/>
+        <field name="instructor_id" ref="instructor_carlos"/>
+        <field name="alumno_ids" eval="[(6, 0, [ref('alumno_1')])]"/>
+    </record>
+
+    <record id="sesion_1" model="academia.sesion">
+        <field name="name">Introducción y arquitectura</field>
+        <field name="curso_id" ref="curso_odoo_basico"/>
+        <field name="duracion">0.75</field>
+    </record>
+    <record id="sesion_2" model="academia.sesion">
+        <field name="name">Vistas y modelos</field>
+        <field name="curso_id" ref="curso_odoo_basico"/>
+        <field name="duracion">2.25</field>
+    </record>
+</odoo>

@@ -1,0 +1,29 @@
+# RECONSTRUIDO tras perder el disco. Fuente: nombres de volumenes/redes de Docker e historial de bash.
+# VERIFICAR: imagen/version de Odoo, puertos, contrasenas y bind mounts. Los volumenes llevan 'name:' para
+# enlazar con los volumenes que ya existen en Docker, sin importar el nombre de la carpeta.
+services:
+  web:
+    image: odoo:15
+    ports:
+      - "8069:8069"
+    tty: true
+    volumes:
+      - odoo-web-15-comunity:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./odoo:/var/lib/odoo/.local/share/Odoo
+    environment:
+      - HOST=db_main
+      - USER=odoo
+      - PASSWORD=odoo
+  db:
+    image: postgres:16
+    container_name: db_capa
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - db-capa-tes:/var/lib/postgresql/data
+volumes:
+  odoo-web-15-comunity:
+  db-capa-tes:

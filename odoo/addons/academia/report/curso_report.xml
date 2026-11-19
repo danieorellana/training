@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ACCIÓN DE REPORTE: aparece en el menú Imprimir del curso -->
+    <record id="action_report_curso" model="ir.actions.report">
+        <field name="name">Ficha del curso</field>
+        <field name="model">academia.curso</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">academia.report_curso</field>
+        <field name="report_file">academia.report_curso</field>
+        <field name="print_report_name">'Curso - %s' % object.name</field>
+        <field name="binding_model_id" ref="model_academia_curso"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- PLANTILLA QWEB: "docs" contiene los cursos seleccionados -->
+    <template id="report_curso">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="curso">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 t-field="curso.name"/>
+
+                        <div class="row mt-4 mb-4">
+                            <div class="col-4">
+                                <strong>Instructor:</strong>
+                                <span t-field="curso.instructor_id"/>
+                            </div>
+                            <div class="col-4">
+                                <strong>Inicio:</strong>
+                                <span t-field="curso.fecha_inicio"/>
+                            </div>
+                            <div class="col-4">
+                                <strong>Horas:</strong>
+                                <span t-field="curso.horas"/>
+                            </div>
+                        </div>
+
+                        <p t-if="curso.descripcion" t-field="curso.descripcion"/>
+
+                        <h4>Sesiones</h4>
+                        <t t-if="curso.sesion_ids">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Sesión</th>
+                                        <th>Fecha</th>
+                                        <th class="text-right">Duración (h)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="curso.sesion_ids" t-as="sesion">
+                                        <td><span t-field="sesion.name"/></td>
+                                        <td><span t-field="sesion.fecha"/></td>
+                                        <td class="text-right"><span t-field="sesion.duracion"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p class="text-right">
+                                <strong>Total:</strong>
+                                <t t-out="sum(curso.sesion_ids.mapped('duracion'))"/> horas
+                            </p>
+                        </t>
+                        <t t-else="">
+                            <p><em>Este curso aún no tiene sesiones.</em></p>
+                        </t>
+
+                        <h4>Alumnos (<t t-out="curso.total_alumnos"/>)</h4>
+                        <ul>
+                            <li t-foreach="curso.alumno_ids" t-as="alumno">
+                                <span t-field="alumno.name"/>
+                            </li>
+                        </ul>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

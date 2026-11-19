@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menú raíz (aparece como aplicación) -->
+    <menuitem id="menu_academia_root" name="Academia" sequence="40"
+              web_icon="base,static/description/icon.png"
+              groups="academia.group_academia_usuario"/>
+
+    <menuitem id="menu_academia_main" name="Academia" parent="menu_academia_root" sequence="10"/>
+    <menuitem id="curso_menu" name="Cursos" parent="menu_academia_main"
+              action="curso_action" sequence="10"/>
+    <menuitem id="sesion_menu" name="Sesiones" parent="menu_academia_main"
+              action="sesion_action" sequence="20"/>
+
+    <menuitem id="menu_academia_config" name="Configuración" parent="menu_academia_root"
+              sequence="90" groups="academia.group_academia_admin"/>
+    <menuitem id="instructor_menu" name="Instructores" parent="menu_academia_config"
+              action="instructor_action" sequence="10"/>
+</odoo>
