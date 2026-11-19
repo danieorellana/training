@@ -2,7 +2,7 @@
 <odoo>
     <!-- Menú raíz (aparece como aplicación) -->
     <menuitem id="menu_academia_root" name="Academia" sequence="40"
-              web_icon="base,static/description/icon.png"
+              web_icon="academia,static/description/icon.png"
               groups="academia.group_academia_usuario"/>
 
     <menuitem id="menu_academia_main" name="Academia" parent="menu_academia_root" sequence="10"/>

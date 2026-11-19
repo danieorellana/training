@@ -55,6 +55,11 @@ class Curso(models.Model):
     sesion_count = fields.Integer(
         string='Número de sesiones', compute='_compute_totales', store=True)
 
+
+    # ------------------------------------------------------------------
+    # Campo relacionado con temario
+    temario_ids = fields.One2many(comodel_name="academia.temario", inverse_name="curso_id", string="Temario del curso")
+
     @api.depends('alumno_ids', 'sesion_ids')
     def _compute_totales(self):
         for curso in self:
@@ -90,6 +95,8 @@ class Curso(models.Model):
     def action_confirmar(self):
         # write(): modificar registros
         self.write({'estado': 'confirmado'})
+        #esto es igual a decir
+        #self.estado = 'confirmado'
 
     def action_terminar(self):
         self.write({'estado': 'terminado'})

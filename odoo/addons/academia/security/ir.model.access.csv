@@ -3,3 +3,5 @@ access_curso_usuario,curso.usuario,model_academia_curso,group_academia_usuario,1
 access_curso_admin,curso.admin,model_academia_curso,group_academia_admin,1,1,1,1
 access_sesion_usuario,sesion.usuario,model_academia_sesion,group_academia_usuario,1,1,1,1
 access_sesion_admin,sesion.admin,model_academia_sesion,group_academia_admin,1,1,1,1
+academia_temario_user,temario.usuario,model_academia_temario,group_academia_usuario,1,0,0,0
+academia_temario_admin,temario.admin,model_academia_temario,group_academia_admin,1,1,1,1

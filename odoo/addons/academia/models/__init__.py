@@ -2,3 +2,4 @@
 from . import res_partner
 from . import curso
 from . import sesion
+from . import temario

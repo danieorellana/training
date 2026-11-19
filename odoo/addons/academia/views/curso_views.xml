@@ -85,6 +85,15 @@
                                 </tree>
                             </field>
                         </page>
+                        <page string="Temario" >
+                            <field name="temario_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="descripcion"/>
+                                </tree>
+                            </field>
+
+                        </page>
                         <page string="Alumnos" name="alumnos">
                             <!-- Many2many -->
                             <field name="alumno_ids" widget="many2many_tags"/>
