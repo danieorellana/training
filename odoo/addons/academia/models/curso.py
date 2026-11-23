@@ -149,3 +149,21 @@ class Curso(models.Model):
             estado: self.search_count([('estado', '=', estado)])
             for estado, _etiqueta in self._fields['estado'].selection
         }
+
+
+    def cadena_con_elementos(self):
+        """Devuelve una cadena con los nombres de los cursos seleccionados."""
+        nombre = "daniel"
+        cadena = f"ueva cadena {nombre}"
+        return cadena
+
+
+    def get_sql_parameters(self):
+        """Ejemplo de cómo usar parámetros en una consulta SQL."""
+        self.env.cr.execute("""
+            SELECT name, horas
+            FROM academia_curso
+            WHERE horas > %s
+            ORDER BY horas DESC
+        """, (5,))
+        return self.env.cr.dictfetchall()

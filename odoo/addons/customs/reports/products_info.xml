@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="action_report_products_info" model="ir.actions.report">
+            <field name="name">Ficha del producto</field>
+            <field name="model">product.template</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">customs.report_products_info</field>
+            <field name="report_file">customs.report_products_info</field>
+            <field name="print_report_name">'Producto - %s' % object.name</field>
+            <field name="binding_model_id" ref="model_product_template"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_products_info">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="product">
+                    <div class="page">
+                        <h2 t-field="product.name"/>
+
+                        <div class="row mt-4 mb-4">
+                            <div class="col-6">
+                                <strong>Categoría:</strong>
+                                <span t-field="product.categ_id"/>
+                            </div>
+                            <div class="col-6">
+                                <strong>Precio de venta:</strong>
+                                <span t-field="product.list_price"/>
+                            </div>
+                        </div>
+
+                        <p t-if="product.notas_fabricante" t-field="product.notas_fabricante"/>
+                        <p t-if="product.notas_cliente" t-field="product.notas_cliente"/>
+                    </div>
+                
+                </t>
+            </t>
+
+            
+        </template>
+          
+    </data>
+</odoo>

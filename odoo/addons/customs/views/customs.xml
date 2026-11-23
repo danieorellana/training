@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<odoo>
+    <data>
+        <record id="view_product_template_notes_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.notes.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <field name="categ_id" position="after">
+                    <field name="notas_fabricante"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo> 
